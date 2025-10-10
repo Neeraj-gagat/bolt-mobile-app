@@ -2,7 +2,9 @@ import type { NextFunction, Response, Request } from "express";
 import  jwt  from "jsonwebtoken";
 
 export function authMiddleware(req: Request, res: Response, next:NextFunction) {
-    const token = req.headers.authorization;
+    const authHeader = req.headers.authorization;
+    const token = authHeader && authHeader.split(" ")[1];
+
     if (!token) {
         res.status(401).json({message: "missing token"})
         return;
