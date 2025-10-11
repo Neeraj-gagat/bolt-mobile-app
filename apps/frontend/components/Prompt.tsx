@@ -5,6 +5,7 @@ import {Send} from "lucide-react"
 import axios from "axios";
 import { useState } from "react";
 import { useAuth } from "@clerk/nextjs";
+import { BACKEND_URL } from "@/config";
 
 export function Prompt() {
     const [prompt, setPrompt] = useState("")
@@ -14,8 +15,8 @@ export function Prompt() {
         <Textarea placeholder="Create your first mobile app" value={prompt} className="w-[680px]" onChange={(e) => setPrompt(e.target.value)}/>
         <div className="flex justify-end">
         <Button  className="w-[50px]" onClick={async() => {
-            const token = getToken()
-            const response = await axios.post("/project", { prompt: prompt },{ headers:{ "Authorization": `Bearer ${token}`}})
+            const token = await getToken()
+            const response = await axios.post(`${BACKEND_URL}/project`, { prompt: prompt },{ headers:{ "Authorization": `Bearer ${token}`}})
             console.log(response.data)
         }}>
             <Send className=""/>
