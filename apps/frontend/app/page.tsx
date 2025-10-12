@@ -8,10 +8,10 @@ export default function Home() {
   return (
     <div className="w-full">
       <Appbar />
-      <SidebarTrigger className=""/>
-      <div className="max-w-2xl mx-auto pt-32">
+      <SidebarTrigger className="bg-black text-white hover:bg-black hover:text-white hover:cursor-pointer"/>
+      <div className="max-w-2xl mx-auto pt-32 text-white">
         <p className="text-2xl font-bold text-center">What do you want to build?</p>
-        <p className="text-sm text-muted-foreground text-center p-2">
+        <p className="text-sm text-white/80 text-center p-2">
           Prompt, click generate and watch your app come to life
         </p>
         <div className="flex justify-center pt-2">
