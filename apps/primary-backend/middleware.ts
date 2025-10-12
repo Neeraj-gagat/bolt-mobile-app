@@ -11,18 +11,14 @@ export function authMiddleware(req: Request, res: Response, next:NextFunction) {
         return;
     }
  
-    console.log("jwt publlic key", process.env.JWT_PUBLIC_KEY)
     const decoded = jwt.verify(token, process.env.JWT_PUBLIC_KEY!, {
         algorithms: ["RS256"]
     });
 
-     console.log(decoded)
     if (!decoded) {
         res.json(401).json({message: "Unauthorized token"})
         return; 
     }
-
-    console.log(decoded)
 
     const userId = (decoded as any).sub;
     

@@ -1,12 +1,14 @@
 import { Appbar } from "@/components/Appbar";
 import { Prompt } from "@/components/Prompt";
 import { TemplateButton } from "@/components/TemplateButton";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="">
+    <div className="w-full">
       <Appbar />
+      <SidebarTrigger className=""/>
       <div className="max-w-2xl mx-auto pt-32">
         <p className="text-2xl font-bold text-center">What do you want to build?</p>
         <p className="text-sm text-muted-foreground text-center p-2">
