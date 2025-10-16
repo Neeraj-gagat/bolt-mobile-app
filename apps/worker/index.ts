@@ -2,6 +2,8 @@ import express from "express"
 import cors from "cors"
 import { prismaClient} from "db/client"
 import { systemPrompt } from "./systemPrompt"
+import { ArtifactProcessor } from "./parser"
+import { onFileUpdate, onShellCommand } from "./os"
 
 
 const app =  express()
