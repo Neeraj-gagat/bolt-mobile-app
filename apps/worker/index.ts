@@ -1,7 +1,7 @@
 import express from "express"
 import cors from "cors"
 import { prismaClient} from "db/client"
-import { systemPrompt } from "./systemPrompt"
+import  {systemPrompt}  from "./systemPrompt"
 import { ArtifactProcessor } from "./parser"
 import { onFileUpdate, onShellCommand } from "./os"
 import Anthropic from "@anthropic-ai/sdk"
@@ -41,7 +41,7 @@ app.post("/prompt", async (req , res ) => {
         role: p.type === "USER" ? "user" : "assistant",
         content: p.content, 
     })),
-    system: systemPrompt(projectId.type),
+    system: systemPrompt,
     model: "---TODO---",
     max_tokens: 8000
   }).on("text", (text:any) => {
