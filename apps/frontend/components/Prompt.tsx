@@ -6,8 +6,10 @@ import axios from "axios";
 import { useState } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { BACKEND_URL } from "@/config";
+import { useRouter } from "next/navigation";
 
 export function Prompt() {
+    const router = useRouter();
     const [prompt, setPrompt] = useState("")
     const {getToken} =  useAuth()
 
@@ -17,7 +19,7 @@ export function Prompt() {
         <Button  className="w-[40px] h-[35px] bg-white hover:bg-white" onClick={async() => {
             const token = await getToken()
             const response = await axios.post(`${BACKEND_URL}/project`, { prompt: prompt },{ headers:{ "Authorization": `Bearer ${token}`}})
-            console.log(response.data)
+            router.push(`/project/${response.data.projectId}`)
         }}>
             <Send color="black" className="bg-white"/>
         </Button>
