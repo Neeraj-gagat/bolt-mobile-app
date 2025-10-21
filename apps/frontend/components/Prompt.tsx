@@ -5,7 +5,7 @@ import {Send} from "lucide-react"
 import axios from "axios";
 import { useState } from "react";
 import { useAuth } from "@clerk/nextjs";
-import { BACKEND_URL } from "@/config";
+import { BACKEND_URL, WORKER_API_URL } from "@/config";
 import { useRouter } from "next/navigation";
 
 export function Prompt() {
@@ -18,7 +18,18 @@ export function Prompt() {
         <div className="flex justify-end">
         <Button  className="w-[40px] h-[35px] bg-white hover:bg-white" onClick={async() => {
             const token = await getToken()
-            const response = await axios.post(`${BACKEND_URL}/project`, { prompt: prompt },{ headers:{ "Authorization": `Bearer ${token}`}})
+            const response = await axios.post(`${BACKEND_URL}/project`, {
+                 prompt: prompt 
+                },{
+                     headers:{
+                         "Authorization": `Bearer ${token}`
+                    }
+                })
+                await axios.post(`${WORKER_API_URL}/prompt`,{
+                    projectId: response.data.projectId,
+                    prompt: prompt,
+                })
+
             router.push(`/project/${response.data.projectId}`)
         }}>
             <Send color="black" className="bg-white"/>
