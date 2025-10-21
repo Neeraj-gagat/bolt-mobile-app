@@ -19,6 +19,16 @@ app.post("/project", authMiddleware, async (req, res) => {
     res.json({projectId: project.id})
 })
 
+app.get("/prompts/:projectId", authMiddleware, async (req, res) => {
+    const userId = req.userId!;
+    const projectId = req.params.projectId;
+    const prompts = await prismaClient.prompt.findMany({
+        where:{ projectId }
+    });
+    
+    res.json(prompts);
+})
+
 app.get("/projects", authMiddleware, async (req, res) => {
     const userId = req.userId!;
     const project = await prismaClient.project.findMany({

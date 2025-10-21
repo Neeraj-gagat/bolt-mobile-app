@@ -1,11 +1,15 @@
+"use client"
 import { Appbar } from "@/components/Appbar";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { WORKER_URL } from "@/config";
-import { SearchIcon, Send } from "lucide-react";
+import { usePrompts } from "@/hooks/usePrompts";
+import { Send } from "lucide-react";
 
 
 export default function ProjectArenaPage({params}: {params: {projectId: string}}) {
+    const { prompts } = usePrompts(params.projectId)
+
     return <div className="h-screen w-full">
         {/* <Appbar/> */}
         <div className="flex h-screen">
@@ -13,7 +17,11 @@ export default function ProjectArenaPage({params}: {params: {projectId: string}}
                 <div className="text-white h-6/7 ">
                     <p className="flex justify-center text-center text-[20px] font-[700] py-2.5">Chat history</p>
                     <div className="overflow-y-auto h-[90%] flex flex-col gap-2 p-2 bg-black/90 rounded-md">
-                            
+                            {prompts.map((prompt) => (
+                                <div key={prompt.id}>
+                                    {prompt.content}
+                                </div>
+                            ))}
                     </div>
                 </div>
                 <div className="h-1/7">
