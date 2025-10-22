@@ -3,23 +3,30 @@ import { Appbar } from "@/components/Appbar";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { WORKER_URL } from "@/config";
+import { useActions } from "@/hooks/useAction";
 import { usePrompts } from "@/hooks/usePrompts";
 import { Send } from "lucide-react";
 
 
 export default function ProjectArenaPage({params}: {params: {projectId: string}}) {
     const { prompts } = usePrompts(params.projectId)
+    const { actions } = useActions(params.projectId)
 
     return <div className="h-screen w-full">
         {/* <Appbar/> */}
         <div className="flex h-screen">
             <div className="w-1/4 h-screen flex flex-col justify-between">
-                <div className="text-white h-6/7 ">
-                    <p className="flex justify-center text-center text-[20px] font-[700] py-2.5">Chat history</p>
-                    <div className="overflow-y-auto h-[90%] flex flex-col gap-2 p-2 bg-black/90 rounded-md">
-                            {prompts.map((prompt) => (
-                                <div key={prompt.id}>
+                <div className=" h-6/7 ">
+                    <p className="text-white flex justify-center text-center text-[20px] font-[700] py-2.5">Chat history</p>
+                    <div className="overflow-y-auto h-[90%] flex flex-col gap-2 p-2 bg-black/90 rounded-md ">
+                            {prompts.filter((prompt) => prompt.type === "USER").map((prompt) => (
+                                <div key={prompt.id} className="bg-white p-2 rounded-md text-black">
                                     {prompt.content}
+                                </div>
+                            ))}
+                            {actions.map((action) => (
+                                <div key={action.id} className="bg-white p-2 rounded-md text-black">
+
                                 </div>
                             ))}
                     </div>

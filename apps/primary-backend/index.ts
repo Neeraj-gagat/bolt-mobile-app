@@ -29,6 +29,16 @@ app.get("/prompts/:projectId", authMiddleware, async (req, res) => {
     res.json(prompts);
 })
 
+app.get("/actions/:projectId", authMiddleware, async (req, res) => {
+    const userId = req.userId!;
+    const projectId = req.params.projectId;
+    const actions = await prismaClient.action.findMany({
+        where:{ projectId }
+    });
+    
+    res.json(actions);
+})
+
 app.get("/projects", authMiddleware, async (req, res) => {
     const userId = req.userId!;
     const project = await prismaClient.project.findMany({

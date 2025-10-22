@@ -33,7 +33,7 @@ app.post("/prompt", async (req , res ) => {
     }
   })
 
-  let artifactProcessor = new ArtifactProcessor("", onFileUpdate, onShellCommand);
+  let artifactProcessor = new ArtifactProcessor("",(filepath, filecontent) =>  onFileUpdate(filepath, filecontent, projectId),(shellCommand) => onShellCommand(shellCommand, projectId));
   let artifact = "";
 
   let response =  client.messages.stream({
@@ -57,6 +57,14 @@ app.post("/prompt", async (req , res ) => {
             type: "SYSTEM"
         },
     });
+
+    await prismaClient.action.create({
+      data:{
+        content:"done",
+        projectId,
+      }
+    });
+
   }).on("error", (err:any) => {
     console.log("error", err);
   });
