@@ -21,7 +21,7 @@ export async function onShellCommand(shellCommand:string, projectId:string) {
     for (const command of commands) {
         console.log(`Excecuting comands: ${command}`);
         const result = Bun.spawnSync({cmd: command.split(" "), cwd: BASE_WORKER_DIR});
-        prismaClient.action.create({
+        await prismaClient.action.create({
             data:{
                 projectId,
                 content: `ran shell command: ${command}`
